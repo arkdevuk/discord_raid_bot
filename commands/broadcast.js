@@ -64,7 +64,7 @@ WHERE g.discord_id = ${message.guild.id}`;
                     dOut = 'today';
                 }
 
-                let messageTxt = 'Broadcast incoming from **' + message.author.name
+                let messageTxt = 'Broadcast incoming from **' + message.author.username
                     + '** concerning ! __' + Guild_.gtag + '__\'s raid scheduled ' + dOut + '==>\n' + messageOut;
 
                 message.guild.channels.get(Guild_.raid_chan).fetchMessage(r_.message_id)
