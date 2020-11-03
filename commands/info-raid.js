@@ -81,10 +81,8 @@ WHERE g.discord_id = ${message.guild.id}` ;
                                     messageOutput += txt_ + '\n';
                                 }
                             }
-
+                            messageOutput += "\n" + `Total of **${totalPlayer}** players.`;
                             message.channel.send(messageOutput);
-
-                            message.channel.send(`Total of **${totalPlayer}** players.`);
                         });
 
                 });
