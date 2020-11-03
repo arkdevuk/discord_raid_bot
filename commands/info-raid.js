@@ -1,5 +1,4 @@
 const moment = require('moment-timezone');
-const defaultStr =  require('../inc/default_str');
 const namator =  require('../inc/namator');
 
 module.exports = {
@@ -29,7 +28,6 @@ WHERE g.discord_id = ${message.guild.id}` ;
             let inserts = [Guild_.id, args[0]];
             sqlSearch = message.mysql_.format(sqlSearch, inserts);
 
-            //*
             message.mysql.query(sqlSearch, (err, result) => {
                 if(err) {
                     message.channel.send('An error occured 😫 sry');
@@ -52,20 +50,18 @@ WHERE g.discord_id = ${message.guild.id}` ;
                         message.channel.send(`__**Raid was CANCELED**__`);
                     }
 
-
-                    let chanMf  = message.guild.channels.get(Guild_.raid_chan).fetchMessage(r_.message_id)
+                    message.guild.channels.get(Guild_.raid_chan).fetchMessage(r_.message_id)
                         .then(async oldMess => {
                             const reactionsArray = oldMess.reactions.array();
                             let output = [];
                             for (const reactionItem of reactionsArray) {
                                 await reactionItem.fetchUsers();//populate the user array
-                                //console.log(reactionItem);
                                 if (reactionItem._emoji !== undefined) {
                                     output[reactionItem._emoji.name] = reactionItem.users.array();
                                 }
                             }
 
-
+                            let messageOutput = '';
                             let totalPlayer = 0;
                             for (const className in output) {
                                 console.log(className);
@@ -82,9 +78,11 @@ WHERE g.discord_id = ${message.guild.id}` ;
                                             txt_ += `${userEntity.username} *#${userEntity.discriminator}*\n` ;
                                         }
                                     }
-                                    message.channel.send(txt_ + '\n');
+                                    messageOutput += txt_ + '\n';
                                 }
                             }
+
+                            message.channel.send(messageOutput);
 
                             message.channel.send(`Total of **${totalPlayer}** players.`);
                         });
@@ -92,7 +90,7 @@ WHERE g.discord_id = ${message.guild.id}` ;
                 });
 
 
-            });//*/
+            });
 
         });
     },
