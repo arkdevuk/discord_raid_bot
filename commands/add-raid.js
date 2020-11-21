@@ -48,6 +48,7 @@ module.exports = {
             let s = y__ + '-' + m__ + '-' + d__ + ' ' + hour + ':' + minute;
             let m = moment.tz(s, zone);
             let mR = m.format();
+            let dayName = m.locale(settingsG_.lang).format('dddd');
 
             const tms_o = (+ new Date(mR))/1000;
 
@@ -59,7 +60,7 @@ module.exports = {
             const channelId = settingsG_.raid_chan;
 
             let raidMessage = `Raid scheduled by <@${message.author.id}>\n` +
-                y__ + '-' + m__ + '-' + d__ + ' @ ' + hour + ':' + minute + " (" + settingsG_.timezone + ")\n" + map + "\n" + comment + "\n*react to this message*";
+                y__ + '-' + m__ + '-' + d__ + '(__' + dayName + '__) @ ' + hour + ':' + minute + " (" + settingsG_.timezone + ")\n" + map + "\n" + comment + "\n*react to this message*";
 
             message.mysql.query('SELECT * FROM bot_oo_ds.guild_list as gl WHERE gl.discord_id = ' + message.guild.id + ' LIMIT 1;', (err, rs2) => {
                 if (err) {
